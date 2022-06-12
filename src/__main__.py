@@ -1,11 +1,11 @@
 import tabulate
-import rds, ec2, s3, dynamo, aws_lambda
+import ec2
 
 def tabulate_instances_list(dataset):
-     header = dataset[0].keys()
-     rows =  [x.values() for x in dataset]
-     tabulated_table = tabulate.tabulate(rows, header)
-     print(tabulated_table)
+    header = dataset[0].keys()
+    rows =  [x.values() for x in dataset]
+    tabulated_table = tabulate.tabulate(rows, header)
+    print(tabulated_table)
 
 
 print("---------------------")

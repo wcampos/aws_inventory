@@ -12,36 +12,36 @@ def describe_ec2():
             if 'Tags' in instance:
                 for tag in instance['Tags']:
                     if tag['Key'] == 'Name':
-                        iName = tag['Value']
+                        name = tag['Value']
                     elif "Env" in tag['Key']:
-                        iEnvironment = tag['Value']
+                        env = tag['Value']
             else:
-                iName = 'empty'
-                iEnvironment = 'empty'
-        iInstanceID = instance['InstanceId']            
-        iInstanceType = instance['InstanceType']
-        iInstanceVPC = instance['VpcId']
-        iSubnetID = instance['SubnetId']
+                name = 'empty'
+                env = 'empty'
+        instance_id = instance['InstanceId']            
+        instance_type = instance['InstanceType']
+        instance_vpc = instance['VpcId']
+        subnet_id = instance['SubnetId']
         for sg in  instance['SecurityGroups']:
-            iSecGroup = sg['GroupId']
-        iIAMProfile = instance['IamInstanceProfile']['Arn']
-        iLaunchTime = instance['LaunchTime']
-        iPrivateIP = instance['PrivateIpAddress']
-        iState = instance['State']['Name']
-        iPlatform = instance['PlatformDetails']
+            sg_id = sg['GroupId']
+        iam_instance_profile = instance['IamInstanceProfile']['Arn']
+        launch_time = instance['LaunchTime']
+        private_ip = instance['PrivateIpAddress']
+        state = instance['State']['Name']
+        platform = instance['PlatformDetails']
         idict.update({
-            'Name': iName,
-            'Environment': iEnvironment,
-            'Instance Id': iInstanceID,
-            'Instance Type': iInstanceType,
-            'Vpc Id': iInstanceVPC,
-            'Subnet Id': iSubnetID,
-            'Security Group': iSecGroup,
-            'IAM Instance profile': iIAMProfile.split("/",1)[-1],
-            'Lauched Time': iLaunchTime,
-            'Private IP': iPrivateIP,
-            'State': iState,
-            'OS Family': iPlatform
+            'Name': name,
+            'Environment': env,
+            'Instance Id': instance_id,
+            'Instance Type': instance_type,
+            'Vpc Id': instance_vpc,
+            'Subnet Id': subnet_id,
+            'Security Group': sg_id,
+            'IAM Instance profile': iam_instance_profile.split("/",1)[-1],
+            'Lauched Time': launch_time,
+            'Private IP': private_ip,
+            'State': state,
+            'OS Family': platform
         })
         ilist.append(idict.copy())
     sortedlist = sorted(ilist, key=lambda i: i['Name'])
@@ -56,19 +56,19 @@ def describe_vpcs():
         if 'Tags' in vpc:
             for tag in vpc['Tags']:
                 if "Name" in tag['Key']:
-                    iVpcName = tag['Value']
+                    vpc_name = tag['Value']
                 elif "Env" in tag['Key']:
-                    iVpcEnv = tag['Value']
+                    vpc_env = tag['Value']
         else:
-            iVpcName = 'empty'
-            iVpcEnv = 'empty'
-        iVpcId = vpc['VpcId']                
-        iVpcCidr = vpc['CidrBlock']
+            vpc_name = 'empty'
+            vpc_env = 'empty'
+        vpc_id = vpc['VpcId']                
+        vpc_cidr = vpc['CidrBlock']
         idict.update({
-            'VPC Name': iVpcName,
-            'Environment': iVpcEnv,
-            'VPC Id': iVpcId,
-            'VPC Cidr Block': iVpcCidr
+            'VPC Name': vpc_name,
+            'Environment': vpc_env,
+            'VPC Id': vpc_id,
+            'VPC Cidr Block': vpc_cidr
         })
         ilist.append(idict.copy())
     sortedlist = sorted(ilist, key=lambda i: i['VPC Name'])
@@ -85,23 +85,23 @@ def describe_subnets():
         if 'Tags' in sn:
             for tag in sn['Tags']:
                 if "Name" in tag['Key']: 
-                    iSnName = tag['Value']
+                    sn_name = tag['Value']
                 elif "Env" in tag['Key']:
-                    iSnEnv = tag['Value']
+                    sn_env = tag['Value']
         else:
-            iSnName = 'empty'
-            iSnEnv  = 'empty' 
-        iSnId = sn['SubnetId']                
-        iSnCidr = sn['CidrBlock']
-        iSnAvZn = sn['AvailabilityZone']
-        iSnVpcId = sn['VpcId']
+            sn_name = 'empty'
+            sn_env  = 'empty' 
+        sn_id = sn['SubnetId']                
+        sn_cidr = sn['CidrBlock']
+        sn_vpc = sn['VpcId']        
+        sn_az = sn['AvailabilityZone']
         idict.update({
-            'Subnet Name': iSnName,
-            'Environment': iSnEnv,
-            'Subnet Id': iSnId,
-            'Subnet Cidr Block': iSnCidr,
-            'AvailabilityZone': iSnAvZn,
-            'VpcId': iSnVpcId
+            'Subnet Name': sn_name,
+            'Environment': sn_env,
+            'Subnet Id': sn_id,
+            'Subnet Cidr Block': sn_cidr,
+            'VpcId': sn_vpc,
+            'AvailabilityZone': sn_az
 
         })
         ilist.append(idict.copy())
