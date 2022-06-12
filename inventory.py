@@ -1,6 +1,3 @@
-# App for inventory
-from src import functions
+import fx.ec2 as ec2
 
-ec2data = functions.ec2
-
-print(ec2data)
+print(ec2.describe_ec2())
