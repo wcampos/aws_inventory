@@ -12,4 +12,5 @@ disable=
     import-error,
     missing-module-docstring,
     missing-function-docstring,
-    too-many-locals
+    too-many-locals,
+    undefined-loop-variable

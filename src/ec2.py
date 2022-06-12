@@ -82,13 +82,13 @@ def describe_subnets():
     for subnet in sn_data['Subnets']:
         if 'Tags' in subnet:
             for tag in subnet['Tags']:
-                if "Name" in tag['Key']: 
+                if "Name" in tag['Key']:
                     sn_name = tag['Value']
                 elif "Env" in tag['Key']:
                     sn_env = tag['Value']
         else:
             sn_name = 'empty'
-            sn_env  = 'empty' 
+            sn_env  = 'empty'
         sn_id = subnet['SubnetId']
         sn_cidr = subnet['CidrBlock']
         sn_vpc = subnet['VpcId']
@@ -104,5 +104,3 @@ def describe_subnets():
         ilist.append(idict.copy())
     sortedlist = sorted(ilist, key=lambda i: i['Subnet Name'])
     return sortedlist
-
-
