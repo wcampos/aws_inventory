@@ -6,7 +6,7 @@ def describe_ec2():
     ec2_data = client.describe_instances()
     idict={}
     ilist=[]
-    
+
     for reservations in ec2_data['Reservations']:
         for instance in reservations['Instances']:
             if 'Tags' in instance:
@@ -18,12 +18,12 @@ def describe_ec2():
             else:
                 name = 'empty'
                 env = 'empty'
-        instance_id = instance['InstanceId']            
+        instance_id = instance['InstanceId']
         instance_type = instance['InstanceType']
         instance_vpc = instance['VpcId']
         subnet_id = instance['SubnetId']
-        for sg in  instance['SecurityGroups']:
-            sg_id = sg['GroupId']
+        for sec_group in  instance['SecurityGroups']:
+            sg_id = sec_group['GroupId']
         iam_instance_profile = instance['IamInstanceProfile']['Arn']
         launch_time = instance['LaunchTime']
         private_ip = instance['PrivateIpAddress']
@@ -46,7 +46,7 @@ def describe_ec2():
         ilist.append(idict.copy())
     sortedlist = sorted(ilist, key=lambda i: i['Name'])
     return sortedlist
-                
+
 def describe_vpcs():
     vpc_data = client.describe_vpcs()
     idict={}
@@ -62,7 +62,7 @@ def describe_vpcs():
         else:
             vpc_name = 'empty'
             vpc_env = 'empty'
-        vpc_id = vpc['VpcId']                
+        vpc_id = vpc['VpcId']
         vpc_cidr = vpc['CidrBlock']
         idict.update({
             'VPC Name': vpc_name,
@@ -74,16 +74,14 @@ def describe_vpcs():
     sortedlist = sorted(ilist, key=lambda i: i['VPC Name'])
     return sortedlist
 
-
-
 def describe_subnets():
     sn_data = client.describe_subnets()
     idict={}
     ilist=[]
 
-    for sn in sn_data['Subnets']:
-        if 'Tags' in sn:
-            for tag in sn['Tags']:
+    for subnet in sn_data['Subnets']:
+        if 'Tags' in subnet:
+            for tag in subnet['Tags']:
                 if "Name" in tag['Key']: 
                     sn_name = tag['Value']
                 elif "Env" in tag['Key']:
@@ -91,10 +89,10 @@ def describe_subnets():
         else:
             sn_name = 'empty'
             sn_env  = 'empty' 
-        sn_id = sn['SubnetId']                
-        sn_cidr = sn['CidrBlock']
-        sn_vpc = sn['VpcId']        
-        sn_az = sn['AvailabilityZone']
+        sn_id = subnet['SubnetId']
+        sn_cidr = subnet['CidrBlock']
+        sn_vpc = subnet['VpcId']
+        sn_az = subnet['AvailabilityZone']
         idict.update({
             'Subnet Name': sn_name,
             'Environment': sn_env,
@@ -102,8 +100,9 @@ def describe_subnets():
             'Subnet Cidr Block': sn_cidr,
             'VpcId': sn_vpc,
             'AvailabilityZone': sn_az
-
         })
         ilist.append(idict.copy())
     sortedlist = sorted(ilist, key=lambda i: i['Subnet Name'])
     return sortedlist
+
+
