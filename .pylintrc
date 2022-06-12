@@ -1,5 +1,4 @@
 [pylint]
-fail-fast= false
 ignore=
     migrations,
     manage.py,
