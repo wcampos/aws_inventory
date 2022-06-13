@@ -14,6 +14,10 @@ Pulls basic data for the following services:
 - security group rules
 - target groups
 - loadbalancers
+- s3
+- dynamodb
+- rds
+- lambda
 
 ## How to use:
 Run:
