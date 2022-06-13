@@ -104,3 +104,63 @@ def describe_subnets():
         ilist.append(idict.copy())
     sortedlist = sorted(ilist, key=lambda i: i['Subnet Name'])
     return sortedlist
+
+def describe_security_groups():
+    sg_data = client.describe_security_groups()
+    idict={}
+    ilist=[]
+    
+    for sec_grp in sg_data['SecurityGroups']:
+        sg_name = sec_grp['GroupName']
+        sg_id = sec_grp['GroupId']
+        sg_vpc = sec_grp['VpcId']
+        sg_dpto = sec_grp['Description']
+        idict.update({
+            'Name': sg_name,
+            'Id': sg_id,
+            'VPC': sg_vpc,
+            'Description': sg_dpto
+        })
+        ilist.append(idict.copy())
+    sortedlist = sorted(ilist, key=lambda i: i['Name'])
+    return sortedlist
+
+
+def describe_security_group_rules():
+    rules_data = client.describe_security_group_rules()
+    idict={}
+    ilist=[]
+
+    for rule in rules_data['SecurityGroupRules']:
+        rl_sgid = rule['GroupId']
+        rl_grid = rule['SecurityGroupRuleId']
+        if rule['IsEgress'] == True:
+            rl_type = 'Egress'
+        else: 
+            rl_type = 'Ingress'
+        rl_prot = rule['IpProtocol']
+        rl_from = rule['FromPort']
+        rl_to = rule['ToPort']
+        if "CidrIpv4" in rule:
+            rl_cidr = rule['CidrIpv4']
+        elif "CidrIpv6" in rule: 
+            rl_cidr = rule['CidrIpv6']
+        else: 
+            rl_cidr = rule['ReferencedGroupInfo']['GroupId']
+        if "Description" in rule:
+            rl_dpto = rule['Description']
+        else:
+            rl_dpto = 'No Description'
+        idict.update({
+            'Group Id': rl_sgid,
+            'Rule Id': rl_grid,
+            'Type': rl_type,
+            'Protocol': rl_prot,
+            'From Port': rl_from,
+            'To Port': rl_to,
+            'Cidr': rl_cidr,
+            'Description': rl_dpto
+        })
+        ilist.append(idict.copy())
+    sortedlist = sorted(ilist, key=lambda i: i['Group Id'])
+    return sortedlist
