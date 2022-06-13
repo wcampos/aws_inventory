@@ -8,7 +8,7 @@ def tabulate_instances_list(dataset):
     tabulated_table = tabulate.tabulate(rows, header)
     print(tabulated_table)
 
-def print_tb(data): 
+def print_tb(data):
     print(tabulate_instances_list(data))
 
 ec2_data = ec2.describe_ec2()
