@@ -6,7 +6,7 @@ def describe_target_groups():
     target_data = client.describe_target_groups()
     idict={}
     ilist=[]
-    
+
     for target in target_data['TargetGroups']:
         tg_name = target['TargetGroupName']
         tg_prot = target['Protocol']
