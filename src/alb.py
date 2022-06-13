@@ -34,12 +34,10 @@ def describe_target_groups():
     sortedlist = sorted(ilist, key=lambda i: i['Name'])
     return sortedlist
 
-# TODO: Add azs to Lbs
 def describe_loadbalancers():
     lb_data = client.describe_load_balancers()
     idict={}
     ilist=[]
-    subnets=[]
 
     for loadbalancer in lb_data['LoadBalancers']:
         lb_name = loadbalancer['LoadBalancerName']
