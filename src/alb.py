@@ -16,8 +16,14 @@ def describe_target_groups():
         tg_albn = target['LoadBalancerArns']
         tg_hcpl = target['HealthCheckProtocol']
         tg_hcpt = target['HealthCheckPort']
-        tg_hcph = target['HealthCheckPath']
-        tg_hcmt = target['Matcher']['HttpCode']
+        if 'HealthCheckPath' in target:
+            tg_hcph = target['HealthCheckPath']
+        else:
+            tg_hcph = 'unknown'
+        if 'Matcher' in target:
+            tg_hcmt = target['Matcher']['HttpCode']
+        else:
+            tg_hcmt = 'unknown'
         idict.update({
             'Name': tg_name,
             'Protocol': tg_prot,

@@ -3,6 +3,8 @@ import ec2
 import alb
 import s3
 import dynamo
+import rds
+import aws_lambda
 
 def tabulate_instances_list(dataset):
     header = dataset[0].keys()
@@ -22,6 +24,8 @@ tg_data = alb.describe_target_groups()
 lb_data = alb.describe_loadbalancers()
 s3_data = s3.describe_s3()
 dy_data = dynamo.describe_dynamodb()
+rds_data = rds.describe_rds()
+lmd_data = aws_lambda.describe_lambda()
 
 print_tb(ec2_data)
 print_tb(vpc_data)
@@ -32,3 +36,5 @@ print_tb(tg_data)
 print_tb(lb_data)
 print_tb(s3_data)
 print_tb(dy_data)
+print_tb(rds_data)
+print_tb(lmd_data)
