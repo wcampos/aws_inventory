@@ -34,5 +34,30 @@ def describe_target_groups():
     sortedlist = sorted(ilist, key=lambda i: i['Name'])
     return sortedlist
 
-#print(client.describe_load_balancers())
-#print(client.describe_listeners())
+# TODO: Add azs to Lbs
+def describe_loadbalancers():
+    lb_data = client.describe_load_balancers()
+    idict={}
+    ilist=[]
+    subnets=[]
+
+    for loadbalancer in lb_data['LoadBalancers']:
+        lb_name = loadbalancer['LoadBalancerName']
+        lb_scheme = loadbalancer['Scheme']
+        lb_state = loadbalancer['State']['Code']
+        lb_type = loadbalancer['Type']
+        lb_lbtp = loadbalancer['IpAddressType']
+        lb_arn = loadbalancer['LoadBalancerArn']
+        lb_dns_name = loadbalancer['DNSName']
+        idict.update({
+            'Name': lb_name,
+            'Scheme': lb_scheme,
+            'State': lb_state,
+            'Type': lb_type,
+            'IpAddressType': lb_lbtp,
+            'Arn': lb_arn,
+            'DNS Name': lb_dns_name
+        })
+        ilist.append(idict.copy())
+    sortedlist = sorted(ilist, key=lambda i: i['Name'])
+    return sortedlist
