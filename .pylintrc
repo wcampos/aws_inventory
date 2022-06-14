@@ -12,5 +12,12 @@ disable=
     import-error,
     missing-module-docstring,
     missing-function-docstring,
-    too-many-locals,
-    undefined-loop-variable
+    missing-class-docstring,
+    no-self-argument,
+    no-member,
+    undefined-loop-variable,
+    no-value-for-parameter,
+    invalid-name,
+    pointless-string-statement,
+    too-few-public-methods,
+    too-many-locals
