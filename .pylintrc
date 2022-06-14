@@ -14,4 +14,7 @@ disable=
     missing-function-docstring,
     missing-class-docstring,
     no-self-argument,
-    no-member
+    no-member,
+    undefined-loop-variable,
+    no-value-for-parameter,
+    invalid-name

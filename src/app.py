@@ -1,6 +1,6 @@
 import tabulate
-import aws_classes as aws
 import boto3
+import aws_classes as aws
 
 """
 Clients
@@ -15,17 +15,17 @@ s3b_client = boto3.client('s3')
 """
 Data
 """
-ec2_data = aws.ec2Class.describe_ec2(ec2_client)
-vpc_data = aws.ec2Class.describe_vpcs(ec2_client)
-sn_data = aws.ec2Class.describe_subnets(ec2_client)
-sg_data = aws.ec2Class.describe_security_groups(ec2_client)
-sgr_data = aws.ec2Class.describe_security_group_rules(ec2_client)
-tg_data = aws.albClass.describe_target_groups(alb_client)
-lb_data = aws.albClass.describe_loadbalancers(alb_client)
-s3_data = aws.s3Class.describe_s3(s3b_client)
-dy_data = aws.dynamodbClass.describe_dynamodb(dyn_client)
-rds_data = aws.rdsClass.describe_rds(rds_client)
-lmd_data = aws.awsLambdaClass.describe_lambda(lmd_client)
+ec2_data = aws.ec2.describe_ec2(ec2_client)
+vpc_data = aws.ec2.describe_vpcs(ec2_client)
+sn_data = aws.ec2.describe_subnets(ec2_client)
+sg_data = aws.ec2.describe_security_groups(ec2_client)
+sgr_data = aws.ec2.describe_security_group_rules(ec2_client)
+tg_data = aws.alb.describe_target_groups(alb_client)
+lb_data = aws.alb.describe_loadbalancers(alb_client)
+s3_data = aws.s3.describe_s3(s3b_client)
+dy_data = aws.dynamodb.describe_dynamodb(dyn_client)
+rds_data = aws.rds.describe_rds(rds_client)
+lmd_data = aws.awsLambda.describe_lambda(lmd_client)
 
 
 def tabulate_instances_list(dataset):
