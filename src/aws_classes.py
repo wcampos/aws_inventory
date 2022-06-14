@@ -1,5 +1,5 @@
-class alb:
-    def describe_target_groups(client):
+class albClass:
+    def describe_target_groups(self, client):
         target_data = client.describe_target_groups()
         idict={}
         ilist=[]
@@ -37,7 +37,7 @@ class alb:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-    def describe_loadbalancers(client):
+    def describe_loadbalancers(self, client):
         lb_data = client.describe_load_balancers()
         idict={}
         ilist=[]
@@ -63,8 +63,34 @@ class alb:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-class dynamodb:
-    def describe_dynamodb(client):
+class awsLambdaClass:
+    def describe_lambda(client):
+        ld_data = client.list_functions()
+        idict={}
+        ilist=[]
+        for ld_func in ld_data['Functions']:
+            ld_name = ld_func['FunctionName']
+            ld_rntm = ld_func['Runtime']
+            ld_hdlr = ld_func['Handler']
+            ld_mmsz = ld_func['MemorySize']
+            ld_strg = ld_func['EphemeralStorage']['Size']
+            ld_pktp = ld_func['PackageType']
+            ld_mftm = ld_func['LastModified']
+            idict.update({
+                'Name': ld_name,
+                'Runtime': ld_rntm,
+                'Handler': ld_hdlr,
+                'Memory': ld_mmsz,
+                'Storage Size': ld_strg,
+                'Package Type': ld_pktp,
+                'Last Modified': ld_mftm
+            })
+            ilist.append(idict.copy())
+        sortedlist = sorted(ilist, key=lambda i: i['Name'])
+        return sortedlist
+
+class dynamodbClass:
+    def describe_dynamodb(self, client):
         dyn_data = client.list_tables()
         idict={}
         ilist=[]
@@ -77,8 +103,8 @@ class dynamodb:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-class ec2:
-    def describe_ec2(client):
+class ec2Class:
+    def describe_ec2(self, client):
         ec2_data = client.describe_instances()
         idict={}
         ilist=[]
@@ -122,7 +148,7 @@ class ec2:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-    def describe_vpcs(client):
+    def describe_vpcs(self, client):
         vpc_data = client.describe_vpcs()
         idict={}
         ilist=[]
@@ -148,7 +174,7 @@ class ec2:
         sortedlist = sorted(ilist, key=lambda i: i['VPC Name'])
         return sortedlist
 
-    def describe_subnets(client):
+    def describe_subnets(self, client):
         sn_data = client.describe_subnets()
         idict={}
         ilist=[]
@@ -178,7 +204,7 @@ class ec2:
         sortedlist = sorted(ilist, key=lambda i: i['Subnet Name'])
         return sortedlist
 
-    def describe_security_groups(client):
+    def describe_security_groups(self, client):
         sg_data = client.describe_security_groups()
         idict={}
         ilist=[]
@@ -197,7 +223,7 @@ class ec2:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-    def describe_security_group_rules(client):
+    def describe_security_group_rules(self, client):
         rules_data = client.describe_security_group_rules()
         idict={}
         ilist=[]
@@ -235,33 +261,7 @@ class ec2:
         sortedlist = sorted(ilist, key=lambda i: i['Group Id'])
         return sortedlist
 
-class aws_lambda:
-    def describe_lambda(client):
-        ld_data = client.list_functions()
-        idict={}
-        ilist=[]
-        for ld_func in ld_data['Functions']:
-            ld_name = ld_func['FunctionName']
-            ld_rntm = ld_func['Runtime']
-            ld_hdlr = ld_func['Handler']
-            ld_mmsz = ld_func['MemorySize']
-            ld_strg = ld_func['EphemeralStorage']['Size']
-            ld_pktp = ld_func['PackageType']
-            ld_mftm = ld_func['LastModified']
-            idict.update({
-                'Name': ld_name,
-                'Runtime': ld_rntm,
-                'Handler': ld_hdlr,
-                'Memory': ld_mmsz,
-                'Storage Size': ld_strg,
-                'Package Type': ld_pktp,
-                'Last Modified': ld_mftm
-            })
-            ilist.append(idict.copy())
-        sortedlist = sorted(ilist, key=lambda i: i['Name'])
-        return sortedlist
-
-class rds:
+class rdsClass:
     def describe_rds(client):
         rds_data = client.describe_db_instances()
         idict={}
@@ -285,8 +285,8 @@ class rds:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-class s3:
-    def describe_s3(client):
+class s3Class:
+    def describe_s3(self, client):
         s3_data = client.list_buckets()
         idict={}
         ilist=[]
