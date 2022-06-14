@@ -1,13 +1,32 @@
 import tabulate
-from ec2 import ec2 as ec2
-import alb
-import s3
-import dynamo
-import rds
-import aws_lambda
+import aws_classes as aws
 import boto3
 
+"""
+Clients
+"""
+alb_client = boto3.client('elbv2')
+dyn_client = boto3.client('dynamodb')
 ec2_client = boto3.client('ec2')
+lmd_client = boto3.client('lambda')
+rds_client = boto3.client('rds')
+s3b_client = boto3.client('s3')
+
+"""
+Data
+"""
+ec2_data = aws.ec2.describe_ec2(ec2_client)
+vpc_data = aws.ec2.describe_vpcs(ec2_client)
+sn_data = aws.ec2.describe_subnets(ec2_client)
+sg_data = aws.ec2.describe_security_groups(ec2_client)
+sgr_data = aws.ec2.describe_security_group_rules(ec2_client)
+tg_data = aws.alb.describe_target_groups(alb_client)
+lb_data = aws.alb.describe_loadbalancers(alb_client)
+s3_data = aws.s3.describe_s3(s3b_client)
+dy_data = aws.dynamodb.describe_dynamodb(dyn_client)
+rds_data = aws.rds.describe_rds(rds_client)
+lmd_data = aws.aws_lambda.describe_lambda(lmd_client)
+
 
 def tabulate_instances_list(dataset):
     header = dataset[0].keys()
@@ -18,17 +37,7 @@ def tabulate_instances_list(dataset):
 def print_tb(data):
     print(tabulate_instances_list(data))
 
-ec2_data = ec2.describe_ec2(ec2_client)
-vpc_data = ec2.describe_vpcs(ec2_client)
-sn_data = ec2.describe_subnets(ec2_client)
-sg_data = ec2.describe_security_groups(ec2_client)
-sgr_data = ec2.describe_security_group_rules(ec2_client)
-tg_data = alb.describe_target_groups()
-lb_data = alb.describe_loadbalancers()
-s3_data = s3.describe_s3()
-dy_data = dynamo.describe_dynamodb()
-rds_data = rds.describe_rds()
-lmd_data = aws_lambda.describe_lambda()
+
 
 print('EC2')
 print_tb(ec2_data)
