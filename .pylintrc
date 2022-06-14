@@ -17,4 +17,7 @@ disable=
     no-member,
     undefined-loop-variable,
     no-value-for-parameter,
-    invalid-name
+    invalid-name,
+    pointless-string-statement,
+    too-few-public-methods,
+    too-many-locals
