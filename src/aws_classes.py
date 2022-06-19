@@ -69,6 +69,7 @@ class AwsLambda:
         self.client = boto3.client("lambda")
     def describe_lambda(self):
         ld_data = self.client.list_functions()
+
         idict={}
         ilist=[]
         for ld_func in ld_data['Functions']:
@@ -107,6 +108,7 @@ class DynamoDB:
             ilist.append(idict.copy())
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
+
 
 class Ec2:
     def __init__(self):
