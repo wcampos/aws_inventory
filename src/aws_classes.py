@@ -1,6 +1,10 @@
-class alb:
-    def describe_target_groups(client):
-        target_data = client.describe_target_groups()
+import boto3
+
+class Alb:
+    def __init__(self):
+        self.client = boto3.client("elbv2")
+    def describe_target_groups(self):
+        target_data = self.client.describe_target_groups()
         idict={}
         ilist=[]
         for target in target_data['TargetGroups']:
@@ -35,12 +39,10 @@ class alb:
             ilist.append(idict.copy())
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
-
-    def describe_loadbalancers(client):
-        lb_data = client.describe_load_balancers()
+    def describe_loadbalancers(self):
+        lb_data = self.client.describe_load_balancers()
         idict={}
         ilist=[]
-
         for loadbalancer in lb_data['LoadBalancers']:
             lb_name = loadbalancer['LoadBalancerName']
             lb_scheme = loadbalancer['Scheme']
@@ -62,9 +64,11 @@ class alb:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-class awsLambda:
-    def describe_lambda(client):
-        ld_data = client.list_functions()
+class AwsLambda:
+    def __init__(self):
+        self.client = boto3.client("lambda")
+    def describe_lambda(self):
+        ld_data = self.client.list_functions()
         idict={}
         ilist=[]
         for ld_func in ld_data['Functions']:
@@ -88,9 +92,11 @@ class awsLambda:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-class dynamodb:
-    def describe_dynamodb(client):
-        dyn_data = client.list_tables()
+class DynamoDB:
+    def __init__(self):
+        self.client = boto3.client("dynamodb")
+    def describe_dynamodb(self):
+        dyn_data = self.client.list_tables()
         idict={}
         ilist=[]
         for dynamo in dyn_data['TableNames']:
@@ -102,9 +108,11 @@ class dynamodb:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-class ec2:
-    def describe_ec2(client):
-        ec2_data = client.describe_instances()
+class Ec2:
+    def __init__(self):
+        self.client = boto3.client("ec2")
+    def describe_ec2(self):
+        ec2_data = self.client.describe_instances()
         idict={}
         ilist=[]
         for reservations in ec2_data['Reservations']:
@@ -146,9 +154,8 @@ class ec2:
             ilist.append(idict.copy())
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
-
-    def describe_vpcs(client):
-        vpc_data = client.describe_vpcs()
+    def describe_vpcs(self):
+        vpc_data = self.client.describe_vpcs()
         idict={}
         ilist=[]
         for vpc in vpc_data['Vpcs']:
@@ -172,9 +179,8 @@ class ec2:
             ilist.append(idict.copy())
         sortedlist = sorted(ilist, key=lambda i: i['VPC Name'])
         return sortedlist
-
-    def describe_subnets(client):
-        sn_data = client.describe_subnets()
+    def describe_subnets(self):
+        sn_data = self.client.describe_subnets()
         idict={}
         ilist=[]
         for subnet in sn_data['Subnets']:
@@ -202,9 +208,8 @@ class ec2:
             ilist.append(idict.copy())
         sortedlist = sorted(ilist, key=lambda i: i['Subnet Name'])
         return sortedlist
-
-    def describe_security_groups(client):
-        sg_data = client.describe_security_groups()
+    def describe_security_groups(self):
+        sg_data = self.client.describe_security_groups()
         idict={}
         ilist=[]
         for sec_grp in sg_data['SecurityGroups']:
@@ -221,9 +226,8 @@ class ec2:
             ilist.append(idict.copy())
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
-
-    def describe_security_group_rules(client):
-        rules_data = client.describe_security_group_rules()
+    def describe_security_group_rules(self):
+        rules_data = self.client.describe_security_group_rules()
         idict={}
         ilist=[]
         for rule in rules_data['SecurityGroupRules']:
@@ -260,9 +264,11 @@ class ec2:
         sortedlist = sorted(ilist, key=lambda i: i['Group Id'])
         return sortedlist
 
-class rds:
-    def describe_rds(client):
-        rds_data = client.describe_db_instances()
+class Rds:
+    def __init__(self):
+        self.client = boto3.client("rds")
+    def describe_rds(self):
+        rds_data = self.client.describe_db_instances()
         idict={}
         ilist=[]
         for rds_db in rds_data['DBInstances']:
@@ -284,9 +290,11 @@ class rds:
         sortedlist = sorted(ilist, key=lambda i: i['Name'])
         return sortedlist
 
-class s3:
-    def describe_s3(client):
-        s3_data = client.list_buckets()
+class S3:
+    def __init__(self):
+        self.client = boto3.client("s3")
+    def describe_s3(self):
+        s3_data = self.client.list_buckets()
         idict={}
         ilist=[]
         for bucket in s3_data['Buckets']:
