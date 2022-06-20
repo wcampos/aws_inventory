@@ -1,0 +1,43 @@
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+<html>
+<head>
+  <title>S3 Data</title>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="/">Home</a>
+  <a href="alb">Alb</a>
+  <a href="dynamodb">DynamoDB</a>
+  <a href="ec2">Ec2</a>
+  <a href="lambda">Lambda</a>
+  <a href="networks">Networks</a>
+  <a href="rds">Databases</a>
+  <a href="s3">S3</a>
+  <a href="sgs">SecurityGroups</a>
+</div>
+
+<p1>EC2 DATA</p1>
+<table>
+  <!-- table header -->
+  {% if s3_results %}
+  <tr>
+     {% for key in s3_results[0] %}
+     <th> {{ key }} </th>
+     {% endfor %}
+  </tr>
+  {% endif %}
+
+  <!-- table rows -->
+  {% for dict_item in s3_results %}
+  <tr>
+     {% for value in dict_item.values() %}
+     <td> {{ value }} </td>
+     {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+
+
+</body>
+</html>
