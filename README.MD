@@ -19,10 +19,18 @@ Pulls basic data for the following services:
 - rds
 - lambda
 
+The solution runs using Flask
+
 ## How to use:
+
+Pre-requirements
+```bash
+pip install -r requirements.txt
+```
+
 Run:
 ```bash
-python src/app.py
+python app.py
 ```
 
 
