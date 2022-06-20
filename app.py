@@ -44,7 +44,8 @@ def networking():
     ec2x = awsc.Ec2()
     vpc_results = ec2x.describe_vpcs()
     subnet_results = ec2x.describe_subnets()
-    return render_template("networks.html.j2", vpc_results=vpc_results, subnet_results=subnet_results)
+    return render_template("networks.html.j2", vpc_results=vpc_results, 
+                           subnet_results=subnet_results)
 
 
 @app.route("/rds")
