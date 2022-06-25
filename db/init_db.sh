@@ -1,0 +1,1 @@
+docker-compose --file db_stack.yml up -d

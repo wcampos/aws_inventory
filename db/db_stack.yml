@@ -1,0 +1,13 @@
+version: '0.1'
+services:
+  psqldb:
+    image: postgres
+    environment:
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: Loc4lR00tPa55wd!
+      POSTGRES_DB: inventory
+    ports:
+      - "5432:5432"
+    restart: on-failure
+    volumes:
+     - ${PWD}/psql_data:/var/lib/mysql

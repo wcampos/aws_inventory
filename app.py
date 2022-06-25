@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
 from src import aws_classes as awsc
 
 app = Flask(__name__)
