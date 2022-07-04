@@ -1,0 +1,14 @@
+version: '0.1'
+services:
+  db:
+    image: mysql/mysql-server:8.0.23
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Loc4lR00tPa55wd!
+      MYSQL_DATABASE: inventory
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3306:3306"
+    volumes:
+     - ${PWD}/mysql_data:/var/lib/mysqls
