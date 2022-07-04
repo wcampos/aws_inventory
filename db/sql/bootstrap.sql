@@ -8,6 +8,3 @@ access_key VARCHAR(255) NOT NULL,
 secret_key VARCHAR(255) NOT NULL,
 PRIMARY KEY(id)
 );
-
-
-select * from profiles;
